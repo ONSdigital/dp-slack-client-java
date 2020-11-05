@@ -13,7 +13,12 @@ import java.util.Date;
 public class App {
 
     public static void main(String[] args) throws Exception {
-        Profile profile = new Profile("Zebedee-test", ":chart_with_upwards_trend:", System.getenv("SLACK_TOKEN"));
+        Profile profile = new Profile.Builder()
+                        .username("Zebedee-test")
+                        .emoji(":chart_with_upwards_trend:")
+                        .authToken(System.getenv("SLACK_TOKEN"))
+                        .create();
+
         SlackClient slack = new SlackClientImpl(profile);
 
         run(slack);
