@@ -27,10 +27,10 @@ public class App {
     public static void run(SlackClient slack) throws Exception {
         Profile profile = slack.getProfile();
 
-        PostMessage msg = profile.newPostMessage("slack-client-test", "Publishing collection")
+        PostMessage msg = profile.newPostMessage("slack-client-test", "Publishing collection *testCollection1*")
                 .addAttachment(
-                        new PostMessageAttachment("Collection", "testCollection1", Colour.GOOD)
-                                .addField("Pre-publish start time", new Date().toString(), true));
+                        new PostMessageAttachment("Pre-publish", "", Colour.GOOD)
+                                .addField("Start time", new Date().toString(), true));
 
         PostMessageResponse response = slack.sendMessage(msg);
 
@@ -40,10 +40,10 @@ public class App {
                 .channel(response.getChannel())
                 .getAttachments()
                 .get(0)
-                .addField("Pre-publish end time:", new Date().toString(), true);
+                .addField("End time:", new Date().toString(), true);
 
-        msg.addAttachment(new PostMessageAttachment("Collection", "testCollection1", Colour.GOOD)
-                        .addField("Publish start time",  new Date().toString(), true));
+        msg.addAttachment(new PostMessageAttachment("Publish", "", Colour.GOOD)
+                        .addField("Start time",  new Date().toString(), true));
 
 
         response = slack.updateMessage(msg);
@@ -55,18 +55,18 @@ public class App {
                 .get(1)
                 .addField("Publish end time:", new Date().toString(), true);
 
-        msg.addAttachment(new PostMessageAttachment("Collection", "testCollection1", Colour.GOOD)
-                        .addField("Post-publish start time:", new Date().toString(), true));
+        msg.addAttachment(new PostMessageAttachment("Post-publish", "", Colour.GOOD)
+                        .addField("Start time:", new Date().toString(), true));
 
         response = slack.updateMessage(msg);
         Thread.sleep(3000);
 
-        msg.text("Collection publish completed successfully :white_check_mark:")
+        msg.text(msg.getText() + " completed successfully :white_check_mark:")
                 .ts(response.getTs())
                 .channel(response.getChannel())
                 .getAttachments()
                 .get(2)
-                .addField("Post-publish end time:", new Date().toString(), true);
+                .addField("end time:", new Date().toString(), true);
         slack.updateMessage(msg);
     }
 }
