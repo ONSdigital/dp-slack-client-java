@@ -1,0 +1,13 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: onsdigital/dp-concourse-tools-java
+
+inputs:
+  - name: dp-slack-client-java
+
+run:
+  path: dp-slack-client-java/ci/scripts/audit.sh
