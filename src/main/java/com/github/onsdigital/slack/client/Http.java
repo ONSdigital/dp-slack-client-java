@@ -1,9 +1,7 @@
 package com.github.onsdigital.slack.client;
 
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-
-import java.io.UnsupportedEncodingException;
+import org.apache.hc.client5.http.classic.methods.HttpPost;
+import org.apache.hc.core5.http.io.entity.StringEntity;
 
 class Http {
 
@@ -17,7 +15,7 @@ class Http {
             post.addHeader("Authorization", "Bearer " + authToken);
             post.setEntity(new StringEntity(json));
             return post;
-        } catch (UnsupportedEncodingException ex) {
+        } catch (IllegalArgumentException ex) {
             throw new RuntimeException(ex);
         }
     }
